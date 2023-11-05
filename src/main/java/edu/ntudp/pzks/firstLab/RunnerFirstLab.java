@@ -1,4 +1,4 @@
-package edu.ntudp.pkzs.firstLab;
+package edu.ntudp.pzks.firstLab;
 
 public class RunnerFirstLab {
     public static void main(String[] args) {
