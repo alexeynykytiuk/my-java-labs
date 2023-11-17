@@ -2,9 +2,10 @@ package edu.ntudp.pzks.secondLab;
 
 import java.util.Scanner;
 
-public class RunnerSecondLab {
+public class Runner {
     private static final int MIN_RANDOM_VALUE = -200;
     private static final int MAX_RANDOM_VALUE = 200;
+    private static final int MAX_MATRIX_RANGE = 20;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -12,17 +13,20 @@ public class RunnerSecondLab {
         int width = scanner.nextInt();
         System.out.print("Введіть висоту матриці: ");
         int height = scanner.nextInt();
-        // Перевірка, чи розміри матриці не перевищують 20 на 20
-        if (width > 20 || height > 20) {
-            System.out.println("Розміри матриці не можуть перевищувати 20 на 20.");
+        // Перевірка, чи розміри матриці не перевищують MAX_MATRIX_RANGE на MAX_MATRIX_RANGE
+        if (width > MAX_MATRIX_RANGE || height > MAX_MATRIX_RANGE) {
+            System.out.println("Розміри матриці не можуть перевищувати" + MAX_MATRIX_RANGE + " на " + MAX_MATRIX_RANGE);
             return;
         }
-        System.out.println("Оберіть спосіб створення матриці цілих чисел:");
-        System.out.println("1. Ручний спосіб вводу;");
-        System.out.println("2. Автоматичний спосіб генерації матриці; (рандомно)");
-        System.out.print("Ваш вибір: ");
-        int choiseUser = scanner.nextInt();
+        System.out.println("""
+                Оберіть спосіб створення матриці цілих чисел:
+                1. Ручний спосіб вводу;
+                2. Автоматичний спосіб генерації матриці; (рандомно)
+                Ваш вибір:
+                """);
+
         int[][] matrix = new int[width][height];
+        int choiseUser = scanner.nextInt();
         if (choiseUser == 1) {
             fillMatrixFromKeyboard(matrix, scanner);
         } else if (choiseUser == 2) {
@@ -33,7 +37,7 @@ public class RunnerSecondLab {
         // Вивід результатів
         System.out.println("Матриця:");
         printMatrix(matrix);
-        System.out.println("Мінімальний елемент: " + findMinElementsMatrix(matrix));
+        System.out.println("Мінімальний елемент: " + findMinElementMatrix(matrix));
         System.out.println("Максимальний елемент: " + findMaxElementsMatrix(matrix));
         System.out.println("Середнє арифметичне: " + findAvarageElementMatrix(matrix, width, height));
         System.out.println("Середнє геометричне: " + findGeometryAvarageElementMatrix(matrix, width, height));
@@ -41,12 +45,12 @@ public class RunnerSecondLab {
     }
 
     // Знаходження мінімальних елементів матриці
-    public static int findMinElementsMatrix(int[][] matrix) {
+    private static int findMinElementMatrix(int[][] matrix) {
         int min = matrix[0][0];
-        for (int[] ints : matrix) {
-            for (int anInt : ints) {
-                if (anInt < min) {
-                    min = anInt;
+        for (int[] rowsOfMatrix : matrix) {
+            for (int elementOfMatrix : rowsOfMatrix) {
+                if (elementOfMatrix < min) {
+                    min = elementOfMatrix;
                 }
             }
         }
@@ -54,7 +58,7 @@ public class RunnerSecondLab {
     }
 
     // Знаходження максимальних елементів матриці
-    public static int findMaxElementsMatrix(int[][] matrix) {
+    private static int findMaxElementsMatrix(int[][] matrix) {
         int max = matrix[0][0];
         for (int[] ints : matrix) {
             for (int anInt : ints) {
@@ -67,7 +71,7 @@ public class RunnerSecondLab {
     }
 
     // Заповнення матриці з клавіатури
-    public static void fillMatrixFromKeyboard(int[][] matrix, Scanner scanner) {
+    private static void fillMatrixFromKeyboard(int[][] matrix, Scanner scanner) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 System.out.print("Елемент[" + i + "][" + j + "]: ");
@@ -77,7 +81,7 @@ public class RunnerSecondLab {
     }
 
     // Заповнення матриці рандомно
-    public static void fillMatrixRandomly(int[][] matrix) {
+    private static void fillMatrixRandomly(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 matrix[i][j] = (int) (Math.random() * (MAX_RANDOM_VALUE - MIN_RANDOM_VALUE + 1) + MIN_RANDOM_VALUE);
@@ -86,7 +90,7 @@ public class RunnerSecondLab {
     }
 
     // Виведення матриці на екран
-    public static void printMatrix(int[][] matrix) {
+    private static void printMatrix(int[][] matrix) {
         for (int[] row : matrix) {
             for (int element : row) {
                 System.out.print(element + " ");
@@ -96,7 +100,7 @@ public class RunnerSecondLab {
     }
 
     // Знаходження середнє значення елемента матриці
-    public static double findAvarageElementMatrix(int[][] matrix, int width, int height) {
+    private static double findAvarageElementMatrix(int[][] matrix, int width, int height) {
         int sum = 0;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -107,7 +111,7 @@ public class RunnerSecondLab {
     }
 
     // Знаходження середнє геометричного значення елемента матриці
-    public static double findGeometryAvarageElementMatrix(int[][] matrix, int width, int height) {
+    private static double findGeometryAvarageElementMatrix(int[][] matrix, int width, int height) {
         double gavg = 1;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
