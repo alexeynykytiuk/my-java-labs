@@ -1,6 +1,6 @@
 package edu.ntudp.pzks.zeroLab;
 
-public class RunnerZeroLab {
+public class Runner {
     public static void main(String[] args) {
         System.out.println("Hello world");
     }

@@ -13,7 +13,6 @@ public class Runner {
         int width = scanner.nextInt();
         System.out.print("Введіть висоту матриці: ");
         int height = scanner.nextInt();
-        // Перевірка, чи розміри матриці не перевищують MAX_MATRIX_RANGE на MAX_MATRIX_RANGE
         if (width > MAX_MATRIX_RANGE || height > MAX_MATRIX_RANGE) {
             System.out.println("Розміри матриці не можуть перевищувати" + MAX_MATRIX_RANGE + " на " + MAX_MATRIX_RANGE);
             return;
@@ -34,17 +33,15 @@ public class Runner {
         } else {
             System.out.println("Помилка, немає такого варіанту");
         }
-        // Вивід результатів
         System.out.println("Матриця:");
         printMatrix(matrix);
         System.out.println("Мінімальний елемент: " + findMinElementMatrix(matrix));
-        System.out.println("Максимальний елемент: " + findMaxElementsMatrix(matrix));
+        System.out.println("Максимальний елемент: " + findMaxElementMatrix(matrix));
         System.out.println("Середнє арифметичне: " + findAvarageElementMatrix(matrix, width, height));
-        System.out.println("Середнє геометричне: " + findGeometryAvarageElementMatrix(matrix, width, height));
+        System.out.println("Середнє геометричне: " + findGeometryAvarageMatrix(matrix, width, height));
         scanner.close();
     }
 
-    // Знаходження мінімальних елементів матриці
     private static int findMinElementMatrix(int[][] matrix) {
         int min = matrix[0][0];
         for (int[] rowsOfMatrix : matrix) {
@@ -57,20 +54,18 @@ public class Runner {
         return min;
     }
 
-    // Знаходження максимальних елементів матриці
-    private static int findMaxElementsMatrix(int[][] matrix) {
+    private static int findMaxElementMatrix(int[][] matrix) {
         int max = matrix[0][0];
-        for (int[] ints : matrix) {
-            for (int anInt : ints) {
-                if (anInt > max) {
-                    max = anInt;
+        for (int[] rowsOfMatrix : matrix) {
+            for (int elementOfMatrix : rowsOfMatrix) {
+                if (elementOfMatrix > max) {
+                    max = elementOfMatrix;
                 }
             }
         }
         return max;
     }
 
-    // Заповнення матриці з клавіатури
     private static void fillMatrixFromKeyboard(int[][] matrix, Scanner scanner) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -80,7 +75,6 @@ public class Runner {
         }
     }
 
-    // Заповнення матриці рандомно
     private static void fillMatrixRandomly(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -89,7 +83,6 @@ public class Runner {
         }
     }
 
-    // Виведення матриці на екран
     private static void printMatrix(int[][] matrix) {
         for (int[] row : matrix) {
             for (int element : row) {
@@ -99,7 +92,6 @@ public class Runner {
         }
     }
 
-    // Знаходження середнє значення елемента матриці
     private static double findAvarageElementMatrix(int[][] matrix, int width, int height) {
         int sum = 0;
         for (int i = 0; i < width; i++) {
@@ -110,16 +102,15 @@ public class Runner {
         return (double) sum / (width * height);
     }
 
-    // Знаходження середнє геометричного значення елемента матриці
-    private static double findGeometryAvarageElementMatrix(int[][] matrix, int width, int height) {
-        double gavg = 1;
+    private static double findGeometryAvarageMatrix(int[][] matrix, int width, int height) {
+        double geometryAvarageValue = 1;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                gavg *= matrix[i][j];
+                geometryAvarageValue *= matrix[i][j];
             }
         }
-        gavg = Math.pow(gavg, 1.0 / (width * height));
-        return gavg;
+        geometryAvarageValue = Math.pow(geometryAvarageValue, 1.0 / (width * height));
+        return geometryAvarageValue;
     }
 
 }
